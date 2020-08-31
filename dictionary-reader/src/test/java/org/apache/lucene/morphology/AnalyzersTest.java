@@ -17,9 +17,9 @@ package org.apache.lucene.morphology;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.BaseTokenStreamTestCase;
-import org.apache.lucene.analysis.CharArraySet;
-import org.apache.lucene.analysis.LowerCaseFilter;
 import org.apache.lucene.analysis.TokenFilter;
+import org.apache.lucene.analysis.core.LowerCaseFilter;
+import org.apache.lucene.analysis.util.CharArraySet;
 import org.apache.lucene.analysis.miscellaneous.SetKeywordMarkerFilter;
 import org.apache.lucene.analysis.standard.StandardTokenizer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
@@ -146,8 +146,8 @@ public class AnalyzersTest extends BaseTokenStreamTestCase {
 
     private static class EnglishKeywordTestAnalyzer extends Analyzer {
         @Override
-        protected TokenStreamComponents createComponents(String s) {
-            StandardTokenizer src = new StandardTokenizer();
+        protected TokenStreamComponents createComponents(String s, Reader reader) {
+            StandardTokenizer src = new StandardTokenizer(reader);
             CharArraySet dontStem = new CharArraySet(1, false);
             dontStem.add("Tests");
             TokenFilter filter = new SetKeywordMarkerFilter(src, dontStem);

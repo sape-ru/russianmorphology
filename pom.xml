@@ -16,7 +16,7 @@
     </scm>
 
     <properties>
-        <lucene.version>8.0.0</lucene.version>
+        <lucene.version>4.10.3</lucene.version>
         <morphology.version>1.5</morphology.version>
         <junit.version>4.12</junit.version>
     </properties>
@@ -53,11 +53,13 @@
             <groupId>org.apache.lucene</groupId>
             <artifactId>lucene-core</artifactId>
             <version>${lucene.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.lucene</groupId>
             <artifactId>lucene-analyzers-common</artifactId>
             <version>${lucene.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -135,6 +137,22 @@
                         <goals>
                             <goal>check</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.2</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <minimizeJar>false</minimizeJar>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
